@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,700" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/ns-default.css" />
+		<link rel="stylesheet" type="text/css" href="css/ns-style-growl.css" />
+    <link rel="stylesheet" type="text/css" href="css/ns-style-attached.css" />
+    <link rel="stylesheet" type="text/css" href="css/ns-style-bar.css" />
+    <link rel="stylesheet" type="text/css" href="css/ns-style-other.css" />
+		<script src="js/modernizr.custom.js"></script>
+    <script src="js/snap.svg-min.js"></script>
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body class="color-1">
+    <div class="notification-shape shape-box" id="notification-shape-7" data-path-to="m 0,0 500,0 0,500 -500,0 z">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 500 500" preserveAspectRatio="none">
+        <path d="m 0,0 500,0 0,500 0,-500 z"/>
+      </svg>
+    </div>
+    <div class="notification-shape shape-progress" id="notification-shape-8">
+      <svg width="70px" height="70px"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
+    </div>
+    <!-- images that appaer in the notifications should be preloaded -->
+    <div style="overflow: hidden; opacity: 0; width: 0px; height:0px;"><img src="img/user1.jpg" /></div>
+    <header class="codrops-header" id="celebrate" style="display: none; position: relative;top: 50%;transform: translateY(-50%);">
+        <h1>Happy Birthday!!! <span>There are about 150 days left before coming back to Taiwan.</span></h1>
+      </header>
+		<div class="container">
+			<div class="main clearfix">
+				<button id="notification-trigger" class="progress-button">
+					<span class="content">Here! Click me, PLEASE!!!</span>
+					<span class="progress"></span>
+				</button>
+			</div>
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/notificationFx.js"></script>
+		<script>
+			(function() {
+        var TOTAL_EFFECT_NUM = 12;
+        var effectNum = 0;
+        var body = document.getElementsByTagName( 'body' )[0];
+				var bttn = document.getElementById( 'notification-trigger' );
+        var svgshape7 = document.getElementById( 'notification-shape-7' ),
+            svgshape8 = document.getElementById( 'notification-shape-8' );
+        var notificationObjs = [{
+          message : '<p>This is just a simple notice. Everything is in order.</p>',
+          layout : 'growl',
+          effect : 'scale',
+          type : 'notice', // notice, warning, error or success
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<p>Hello there! This is the second notice of nothing.</p>',
+          layout : 'growl',
+          effect : 'jelly',
+          type : 'notice', // notice, warning, error or success
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<p>Strange, huh~ </p>',
+          layout : 'growl',
+          effect : 'slide',
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<p>What are you expecting? What the hell is this?</p>',
+          layout : 'growl',
+          effect : 'genie',
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<p>A little bit annoying. Thanks for your monthly postcard!</p>',
+          layout : 'attached',
+          effect : 'flip',
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<span class="icon icon-calendar"></span><p>"Night Market" event was added to your calendar. Check out all your events in your <a href="https://www.google.com/calendar">event overview</a>.</p>',
+          layout : 'attached',
+          effect : 'bouncyflip',
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<span class="icon icon-megaphone"></span><p>You have some interesting news on your Facebook. Go <a href="http://www.facebook.com">check it out</a> now.</p>',
+          layout : 'bar',
+          effect : 'slidetop',
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<span class="icon icon-settings"></span><p>How have you been so far? </p>',
+          layout : 'bar',
+          effect : 'exploader',
+          // ttl : 9000000,
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          wrapper : svgshape7,
+          message : '<p><span class="icon icon-bulb"></span> Still playing basketball there?</p>',
+          layout : 'other',
+          effect : 'cornerexpand',
+          type : 'warning', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          //   setTimeout(function() {
+          //     path.animate( { 'path' : pathConfig.from }, 300, mina.easeinout );
+          //   }, 200 );
+          // }
+        }, {
+          wrapper : svgshape8,
+          message : '<p>Whatever you did, it was successful!</p>',
+          layout : 'other',
+          effect : 'loadingcircle',
+          ttl : 9000,
+          type : 'notice', // notice, warning or error
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }, {
+          message : '<p>...Okay, sorry I am late.</p>',
+          layout : 'other',
+          effect : 'boxspinner',
+          ttl : 9000,
+          type : 'error', // notice, warning or error
+        }, {
+          message : '<div class="ns-thumb"><img style="width: 64px; height: 64px;" src="img/basketball.jpg"/></div><div class="ns-content"><p><a href="#">Malikid</a> wanna say something to you.</p></div>',
+          layout : 'other',
+          ttl : 6000,
+          effect : 'thumbslider',
+          type : 'success', // notice, warning, error or success
+          // onClose : function() {
+          //   bttn.disabled = false;
+          // }
+        }];
+        var themeColors = [1, 9, 2, 10, 3, 4, 5, 8, 2, 3, 9, 11];
+
+				// make sure..
+				bttn.disabled = false;
+				
+				bttn.addEventListener( 'click', function() {
+					// simulate loading (for demo purposes only)
+					classie.add( bttn, 'active' );
+					setTimeout( function() {
+
+						classie.remove( bttn, 'active' );
+
+            // random
+            // var randomNotification = Math.floor((Math.random() * TOTAL_EFFECT_NUM));
+
+            // switch(randomNotification) {
+            switch(effectNum) {
+              case 8:
+                // var svgshape = document.getElementById( 'notification-shape-7' ),
+                var s = Snap( svgshape7.querySelector( 'svg' ) ),
+                  path = s.select( 'path' ),
+                  pathConfig = {
+                    from : path.attr( 'd' ),
+                    to : svgshape7.getAttribute( 'data-path-to' )
+                  };
+                path.animate( { 'path' : pathConfig.to }, 300, mina.easeinout );
+                break;
+            //   case 8:
+            //     var svgshape = document.getElementById( 'notification-shape-8' );
+            //     break;
+            //   default:
+            //     break;
+            }
+
+            // console.log("randomNotification", randomNotification);
+            // console.log("notificationObj", notificationObjs[randomNotification]);
+            console.log("effectNum", effectNum);
+
+            var notificationObj = notificationObjs[effectNum];
+            // notificationObj.message = "<>"
+            notificationObj.onClose = function() {
+              bttn.disabled = false;
+              if(effectNum == 8) {
+                  setTimeout(function() {
+                    path.animate( { 'path' : pathConfig.from }, 300, mina.easeinout );
+                  }, 200 );
+              }
+              effectNum++;
+              if(effectNum == TOTAL_EFFECT_NUM) {
+                document.getElementById("celebrate").style.display = "";
+                return;
+              }
+              setTimeout(function() {
+                body.setAttribute("class", "color-" + themeColors[effectNum]);
+                bttn.click();
+              }, 200 );
+            };
+						
+						// create the notification
+						var notification = new NotificationFx(notificationObj);
+
+						// show the notification
+						notification.show();
+
+					}, 1200 );
+					
+					// disable the button (for demo purposes only)
+					this.disabled = true;
+          this.style.display = "none";
+				} );
+			})();
+		</script>
+	</body>
+</html>
